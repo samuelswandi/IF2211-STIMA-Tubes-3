@@ -72,7 +72,7 @@ func createRiwayat(c echo.Context) error {
 		return newError(c, err)
 	}
 
-	riwayat.Tanggal = time.Now().Format("2006-01-02")
+	riwayat.Tanggal = time.Now().Format("Monday, 2006-01-02")
 	_, err := riwayatCollection.InsertOne(ctx, riwayat)
 	if err != nil {
 		return newError(c, err)
