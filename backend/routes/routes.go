@@ -8,6 +8,7 @@ import (
 
 func UserRoute(e *echo.Echo) {
 	//All routes related to users comes here
-	e.POST("/createUsers", controllers.CreateUser)
-	e.GET("/getAllUsers", controllers.GetAllUsers)
+	// e.POST("/cekHasilTesDNA", controllers.CekDNA)
+	e.POST("/getRiwayat", controllers.GetRiwayat)
+	e.POST("/createPenyakit", controllers.CreatePenyakit)
 }
