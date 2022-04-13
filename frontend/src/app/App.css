@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Poppins';
 }
 
 .App-logo {
@@ -35,4 +36,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+nav.navbar {
+  position: static;
+  margin: 0 auto;
+  font-size: 12px;
+  background-image: linear-gradient(to right, #14AC89 , #33D87E);
+}
+
+.card-title {
+  font-size: 18px !important;
+  font-weight: bolder !important;
+  padding: 10px;
 }
