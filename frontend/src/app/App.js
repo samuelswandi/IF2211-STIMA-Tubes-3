@@ -20,8 +20,8 @@ const App = () => {
           <Route path="/RiwayatPenyakit" element={<RiwayatPenyakit />} />
           <Route path="/TesDNA" element={<TesDNA />} />
         </Routes>
-        <Footer />
       </body>
+      <Footer />
     </div>
   );
 }

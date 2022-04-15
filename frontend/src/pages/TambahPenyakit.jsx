@@ -6,34 +6,54 @@ export default class TambahPenyakit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      namaPenyakit: ""
+      sequenceDNA: null,
+      namaPenyakit: "",
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onChange = (e) => {
     this.setState({namaPenyakit: e.target.value});
   }
 
+  onUpload = async(e) => {
+    const reader = new FileReader();
+    reader.onload = async(e) => {
+      const text = e.target.result;
+      const validPattern = /[^AGCT]/g;
+      const check = text.match(validPattern);
+      if (check === null) {
+        this.setState({sequenceDNA: text});
+      }
+      else {
+        alert("Invalid DNA sequence pattern");
+        this.setState({sequenceDNA: null});
+      }
+    };
+    reader.readAsText(e.target.files[0]);
+  }
+
   onSubmit = (e) => {
-    console.log(this.state.namaPenyakit);
     e.preventDefault();
-    this.setState({namaPenyakit:''});
+    console.log(this.state);
+    this.setState({namaPenyakit:""});
   }
 
   render() {
     return (
-      <div>
+      <div width="100%">
         <Navigation/>
-        <Container style={{marginTop:"60px", paddingLeft:"20vw", paddingRight:"20vw"}}>
-          <Container style={{marginBottom: "60px", fontSize: "40px", fontWeight:"bolder"}}>
+        <Container style={{marginTop:"50px", marginBottom: "60px", fontSize: "40px", fontWeight:"bolder"}}>
             TAMBAHKAN PENYAKIT
-          </Container>
+        </Container>
+        <Container style={{marginLeft:"25%", width: "50%", padding: "40px", borderRadius: "20px", boxShadow: "0px 1px 8px 3px rgba(0, 0, 0, 0.25)"}}>
           <Form>
             <Form.Group className='mb-3' controlId='formFile'>
               <Form.Label>Sequence DNA</Form.Label>
-              <Form.Control type='file'/>
+              <Form.Control 
+                type='file' 
+                accept='.txt'
+                onChange={this.onUpload}
+              />
             </Form.Group>
             <Form.Group className='mb-3' controlId='formBasicText'>
               <Form.Label>Nama Penyakit</Form.Label>
