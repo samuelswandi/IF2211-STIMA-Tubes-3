@@ -1,7 +1,7 @@
 import React from 'react';
 import Navigation from './Navigation';
 
-function RiwayatPenyakit() {
+const RiwayatPenyakit = () => {
   return (
     <div>
       <Navigation/>

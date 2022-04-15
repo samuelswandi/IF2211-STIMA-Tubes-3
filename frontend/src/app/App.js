@@ -1,6 +1,5 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navigation from '../pages/Navigation';
 import { Routes, Route } from 'react-router-dom';
 import RiwayatPenyakit from '../pages/RiwayatPenyakit';
 import TambahPenyakit from '../pages/TambahPenyakit';
@@ -9,7 +8,8 @@ import LamanUtama from '../pages/LamanUtama';
 import TesDNA from '../pages/TesDNA';
 import Footer from '../pages/Footer';
 
-function App() {
+
+const App = () => {
   return (
     <div className="App">
       <body class="d-flex flex-column min-vh-100">

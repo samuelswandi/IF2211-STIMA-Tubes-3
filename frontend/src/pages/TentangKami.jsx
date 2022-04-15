@@ -1,8 +1,7 @@
 import React from 'react';
 import Navigation from './Navigation';
 
-
-function TentangKami() {
+const TentangKami = () => {
   return (
     <div>
       <Navigation/>

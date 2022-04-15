@@ -50,3 +50,42 @@ nav.navbar {
   font-weight: bolder !important;
   padding: 10px;
 }
+
+.button {
+  transition-duration: 0.4s;
+  background-color: #FFFFFF; /* Green */
+  height: 100%;
+  border: none;
+  box-shadow: 0px 1px 8px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+  color: #26CD8A;
+  padding: 60px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #26CD8A; /* Green */
+  color: white;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  padding: 0;
+  width: 100%;
+  height: 60px;   /* Height of the footer */
+  background-image: linear-gradient(to right, #14AC89 , #33D87E);
+}
+
+.fade-in {
+  animation: fade 1s ease-in;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+}
