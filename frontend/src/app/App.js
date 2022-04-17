@@ -12,7 +12,7 @@ import Footer from '../pages/Footer';
 const App = () => {
   return (
     <div className="App">
-      <body class="d-flex flex-column min-vh-100">
+      <div className="d-flex flex-column min-vh-100">
         <Routes>
           <Route path="/" element={<LamanUtama/>} />
           <Route path="/TentangKami" element={<TentangKami />} />
@@ -20,7 +20,7 @@ const App = () => {
           <Route path="/RiwayatPenyakit" element={<RiwayatPenyakit />} />
           <Route path="/TesDNA" element={<TesDNA />} />
         </Routes>
-      </body>
+      </div>
       <Footer />
     </div>
   );

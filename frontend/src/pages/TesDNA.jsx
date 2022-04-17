@@ -9,10 +9,10 @@ export default class TesDNA extends React.Component {
     super(props);
     this.state = {
       tanggal: "",
-      tempNama: "",
-      tempPenyakit: "",
+      printedNama: "",
+      printedPenyakit: "",
       namaPengguna: "",
-      sequenceDNA: null,
+      sequenceDNA: "",
       namaPenyakit: ""
     };
   }
@@ -36,7 +36,7 @@ export default class TesDNA extends React.Component {
       }
       else {
         alert("Invalid DNA sequence pattern");
-        this.setState({sequenceDNA: null});
+        this.setState({sequenceDNA: ""});
       }
     }
     reader.readAsText(e.target.files[0]);
@@ -44,13 +44,13 @@ export default class TesDNA extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
     const today = new Date().toISOString().slice(0, 10);
     this.setState({tanggal: today});
-    this.setState({tempNama: this.state.namaPengguna});
-    this.setState({tempPenyakit: this.state.namaPenyakit});
-    this.setState({namaPengguna:""});
-    this.setState({namaPenyakit:""});
+    console.log(this.state);
+    this.setState({printedNama: this.state.namaPengguna});
+    this.setState({printedPenyakit: this.state.namaPenyakit});
+    this.setState({namaPengguna: ""});
+    this.setState({namaPenyakit: ""});
   }
 
   render() {
@@ -66,22 +66,23 @@ export default class TesDNA extends React.Component {
               <Form>
                 <Form.Group className='mb-3' controlId='formBasicText'>
                   <Form.Label>Nama Pengguna</Form.Label>
-                  <Form.Control 
+                  <Form.Control
                     type='text' 
                     placeholder='Nama Pengguna'
                     value={this.state.namaPengguna}
-                    onChange = {this.onChangePengguna}
+                    onChange ={this.onChangePengguna}
                   />
                 </Form.Group>
-                <Form.Group className='mb-3' controlId='formFile'>
+                <Form.Group className='mb-4' controlId='formFile'>
                   <Form.Label>Sequence DNA</Form.Label>
                   <Form.Control 
+                    style={{height:'3vh'}}
                     type='file' 
                     accept='.txt'
                     onChange={this.onUpload}
                   />
                 </Form.Group>
-                <Form.Group className='mb-3' controlId='formBasicText'>
+                <Form.Group className='mb-5' controlId='formBasicText'>
                   <Form.Label>Prediksi Penyakit</Form.Label>
                   <Form.Control 
                     type='text' 
@@ -94,6 +95,7 @@ export default class TesDNA extends React.Component {
                   type='submit' 
                   variant='outline-success'
                   onClick={this.onSubmit}
+                  disabled={(this.state.namaPengguna === "") || (this.state.namaPenyakit === "") || (this.state.sequenceDNA === "")}
                 >
                     Upload
                 </Button>
@@ -104,7 +106,7 @@ export default class TesDNA extends React.Component {
             <Container style={{marginTop:"130px", marginBottom:"10px", fontSize: "20px", zIndex:"0"}}>
                 Hasil Tes
             </Container>
-            <p>{this.state.tanggal} / {this.state.tempNama} / {this.state.tempPenyakit} / True (DUMMY)</p>
+            <p>{this.state.tanggal} / {this.state.printedNama} / {this.state.printedPenyakit} / True (DUMMY)</p>
             <PieChart
               style={{width:"40%", marginTop: "-5vw"}}
               data={[

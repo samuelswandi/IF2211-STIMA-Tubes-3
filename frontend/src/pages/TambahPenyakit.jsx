@@ -6,7 +6,7 @@ export default class TambahPenyakit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sequenceDNA: null,
+      sequenceDNA: "",
       namaPenyakit: "",
     };
   }
@@ -26,7 +26,7 @@ export default class TambahPenyakit extends React.Component {
       }
       else {
         alert("Invalid DNA sequence pattern");
-        this.setState({sequenceDNA: null});
+        this.setState({sequenceDNA: ""});
       }
     };
     reader.readAsText(e.target.files[0]);
@@ -42,20 +42,21 @@ export default class TambahPenyakit extends React.Component {
     return (
       <div width="100%">
         <Navigation/>
-        <Container style={{marginTop:"50px", marginBottom: "60px", fontSize: "40px", fontWeight:"bolder"}}>
+        <Container style={{marginTop:"50px", marginBottom: "60px", fontSize: "35px", fontWeight:"bolder"}}>
             TAMBAHKAN PENYAKIT
         </Container>
         <Container style={{marginLeft:"25%", width: "50%", padding: "40px", borderRadius: "20px", boxShadow: "0px 1px 8px 3px rgba(0, 0, 0, 0.25)"}}>
           <Form>
-            <Form.Group className='mb-3' controlId='formFile'>
+            <Form.Group className='mb-5' controlId='formFile'>
               <Form.Label>Sequence DNA</Form.Label>
               <Form.Control 
+                style={{height:'3vh'}}
                 type='file' 
                 accept='.txt'
                 onChange={this.onUpload}
               />
             </Form.Group>
-            <Form.Group className='mb-3' controlId='formBasicText'>
+            <Form.Group className='mb-5' controlId='formBasicText'>
               <Form.Label>Nama Penyakit</Form.Label>
               <Form.Control 
                 type='text' 
@@ -68,6 +69,7 @@ export default class TambahPenyakit extends React.Component {
               type='submit' 
               variant='outline-success'
               onClick={this.onSubmit}
+              disabled={(this.state.namaPenyakit === "" || this.state.sequenceDNA === "")}
             >
                 Upload
             </Button>
