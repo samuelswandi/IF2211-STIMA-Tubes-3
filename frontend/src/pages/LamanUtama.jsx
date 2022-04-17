@@ -12,7 +12,7 @@ const LamanUtama = () => {
           Choose Our Services
         </p>
         <Row style={{height:"30vh"}}>
-        <Col sm={4}>
+          <Col sm={4}>
             <a href="/TambahPenyakit" className='button'>
               <Image src="./covid-test.png" width="80%" style={{marginBottom: "30px"}}/>
               <br/>
