@@ -1,4 +1,5 @@
 import React from 'react';
+import '../style/style.css';
 import Navigation from './Navigation';
 import { Container, Table, Form, Button } from 'react-bootstrap';
 
@@ -24,16 +25,18 @@ const RiwayatPenyakit = () => {
   }
 
   return (
-    <div style={{marginBottom:"70px"}}>
+    <div>
+      <div className='elips big center border-right'/>
+      <div className='elips medium top border-left'/>
       <Navigation/>
-      <Container style={{marginTop:"50px", marginBottom: "35px", fontSize: "35px", fontWeight:"bolder"}}>
+      <Container className='title riwayat'>
           RIWAYAT TES
       </Container>
-      <Container style={{width: "35%"}}>
+      <Container className='searchbar'>
         <Form>
           <Form.Group className='mb-3' controlId='formBasicText'>
               <Form.Control
-                style={{borderRadius:"30px", textAlign:"center"}}
+                size='lg'
                 type='text' 
                 value={query}
                 placeholder='Tanggal/Nama Penyakit'
@@ -41,18 +44,16 @@ const RiwayatPenyakit = () => {
               />
           </Form.Group>
           <Button 
-              style={{marginBottom: "40px"}}
-              type='submit' 
-              variant='outline-success'
-              onClick={handleSubmit}
-              disabled={(query === "")}
-            >
-                CARI
-            </Button>
+            type='submit' 
+            onClick={handleSubmit}
+            disabled={(query === "")}
+          >
+            CARI
+          </Button>
         </Form>
       </Container>
-      <Container style={{justifyContent:"center", padding: "20px", width: "80%", borderRadius: "20px", boxShadow: "0px 1px 8px 3px rgba(0, 0, 0, 0.25)"}}>
-        <Table responsive="sm">
+      <Container className='boxpad riwayat'>
+        <Table responsive="sm" className='table-text'>
           <thead>
             <tr>
               <th>No.</th>
@@ -63,14 +64,14 @@ const RiwayatPenyakit = () => {
             </tr>
           </thead>
           <tbody>
-            {result.map(item => {
+            {result.map(data => {
               return (
-                <tr key={item.no}>
-                  <td>{item.no}</td>
-                  <td>{item.tanggal}</td>
-                  <td>{item.namaPengguna}</td>
-                  <td>{item.namaPenyakit}</td>
-                  <td>{item.hasil}</td>
+                <tr key={data.no}>
+                  <td>{data.no}</td>
+                  <td>{data.tanggal}</td>
+                  <td>{data.namaPengguna}</td>
+                  <td>{data.namaPenyakit}</td>
+                  <td>{data.hasil}</td>
                 </tr>
               );
             })}

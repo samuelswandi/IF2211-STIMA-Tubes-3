@@ -1,12 +1,12 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from 'react-router-dom';
-import RiwayatPenyakit from '../pages/RiwayatPenyakit';
-import TambahPenyakit from '../pages/TambahPenyakit';
-import TentangKami from '../pages/TentangKami';
-import LamanUtama from '../pages/LamanUtama';
-import TesDNA from '../pages/TesDNA';
-import Footer from '../pages/Footer';
+import RiwayatPenyakit from '../components/RiwayatPenyakit';
+import TambahPenyakit from '../components/TambahPenyakit';
+import TentangKami from '../components/TentangKami';
+import LamanUtama from '../components/LamanUtama';
+import TesDNA from '../components/TesDNA';
+import Footer from '../components/Footer';
 
 
 const App = () => {

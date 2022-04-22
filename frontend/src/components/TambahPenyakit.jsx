@@ -1,8 +1,9 @@
 import React from 'react';
+import '../style/style.css'
 import Navigation from './Navigation';
 import { Button, Container, Form } from "react-bootstrap";
 
-export default class TambahPenyakit extends React.Component {
+class TambahPenyakit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,17 +41,20 @@ export default class TambahPenyakit extends React.Component {
 
   render() {
     return (
-      <div width="100%">
+      <div>
+        <div className='elips medium center border-left'/>
+        <div className='elips big center bottom'/>
+        <div className='elips small top border-right'/>
         <Navigation/>
-        <Container style={{marginTop:"50px", marginBottom: "60px", fontSize: "35px", fontWeight:"bolder"}}>
+        <Container className='title tambah'>
             TAMBAHKAN PENYAKIT
         </Container>
-        <Container style={{marginLeft:"25%", width: "50%", padding: "40px", borderRadius: "20px", boxShadow: "0px 1px 8px 3px rgba(0, 0, 0, 0.25)"}}>
+        <Container className='boxpad tambah'>
           <Form>
             <Form.Group className='mb-5' controlId='formFile'>
               <Form.Label>Sequence DNA</Form.Label>
               <Form.Control 
-                style={{height:'3vh'}}
+                size='lg'
                 type='file' 
                 accept='.txt'
                 onChange={this.onUpload}
@@ -58,7 +62,8 @@ export default class TambahPenyakit extends React.Component {
             </Form.Group>
             <Form.Group className='mb-5' controlId='formBasicText'>
               <Form.Label>Nama Penyakit</Form.Label>
-              <Form.Control 
+              <Form.Control
+                size='lg'
                 type='text' 
                 value={this.state.namaPenyakit}
                 placeholder='Nama Penyakit'
@@ -67,7 +72,6 @@ export default class TambahPenyakit extends React.Component {
             </Form.Group>
             <Button 
               type='submit' 
-              variant='outline-success'
               onClick={this.onSubmit}
               disabled={(this.state.namaPenyakit === "" || this.state.sequenceDNA === "")}
             >
@@ -79,3 +83,5 @@ export default class TambahPenyakit extends React.Component {
     );
   }
 }
+
+export default TambahPenyakit;

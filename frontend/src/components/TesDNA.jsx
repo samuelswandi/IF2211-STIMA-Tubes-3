@@ -1,10 +1,11 @@
 import React from 'react';
+import '../style/style.css';
 import Navigation from './Navigation';
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { PieChart } from "react-minimal-pie-chart";
 
 
-export default class TesDNA extends React.Component {
+class TesDNA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,27 +57,31 @@ export default class TesDNA extends React.Component {
   render() {
     return (
       <div>
+        <div className='elips big top border-right'/>
+        <div className='elips medium bottom left'/>
+        <div className='elips small center top'/>
         <Navigation/>
         <Row>
           <Col sm={6}>
-            <Container style={{marginTop:"100px", marginBottom: "60px", fontSize: "35px", fontWeight:"bolder"}}>
+            <Container className='title tes'>
                 TES DNA
             </Container>
-            <Container style={{marginLeft:"20%", width: "60%", padding: "40px", borderRadius: "20px", boxShadow: "0px 1px 8px 3px rgba(0, 0, 0, 0.25)"}}>
+            <Container className='boxpad tes'>
               <Form>
-                <Form.Group className='mb-3' controlId='formBasicText'>
+                <Form.Group className='mb-5' controlId='formBasicText'>
                   <Form.Label>Nama Pengguna</Form.Label>
                   <Form.Control
+                    size='lg'
                     type='text' 
                     placeholder='Nama Pengguna'
                     value={this.state.namaPengguna}
                     onChange ={this.onChangePengguna}
                   />
                 </Form.Group>
-                <Form.Group className='mb-4' controlId='formFile'>
+                <Form.Group className='mb-5' controlId='formFile'>
                   <Form.Label>Sequence DNA</Form.Label>
-                  <Form.Control 
-                    style={{height:'3vh'}}
+                  <Form.Control
+                    size='lg' 
                     type='file' 
                     accept='.txt'
                     onChange={this.onUpload}
@@ -84,7 +89,8 @@ export default class TesDNA extends React.Component {
                 </Form.Group>
                 <Form.Group className='mb-5' controlId='formBasicText'>
                   <Form.Label>Prediksi Penyakit</Form.Label>
-                  <Form.Control 
+                  <Form.Control
+                    size='lg' 
                     type='text' 
                     placeholder='Nama Penyakit'
                     value={this.state.namaPenyakit}
@@ -93,22 +99,20 @@ export default class TesDNA extends React.Component {
                 </Form.Group>
                 <Button 
                   type='submit' 
-                  variant='outline-success'
                   onClick={this.onSubmit}
                   disabled={(this.state.namaPengguna === "") || (this.state.namaPenyakit === "") || (this.state.sequenceDNA === "")}
                 >
-                    Upload
+                  Upload
                 </Button>
               </Form>
             </Container>
           </Col>
           <Col sm={6}>
-            <Container style={{marginTop:"130px", marginBottom:"10px", fontSize: "20px", zIndex:"0"}}>
+            <Container className='subtitle'>
                 Hasil Tes
             </Container>
-            <p>{this.state.tanggal} / {this.state.printedNama} / {this.state.printedPenyakit} / True (DUMMY)</p>
+            <p className='result'>{this.state.tanggal} / {this.state.printedNama} / {this.state.printedPenyakit} / True (DUMMY)</p>
             <PieChart
-              style={{width:"40%", marginTop: "-5vw"}}
               data={[
                 {title:'Cocok', value: 10, color: '#04CC9D'},
                 {title:'Tidak Cocok', value: 90, color: '#09919E'}
@@ -121,3 +125,4 @@ export default class TesDNA extends React.Component {
   }
 }
 
+export default TesDNA;
