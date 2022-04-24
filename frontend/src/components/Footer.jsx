@@ -1,12 +1,12 @@
-import React from 'react';
-import '../style/style.css';
+import React from "react";
+import "../style/style.css";
 
 const Footer = () => {
-    return (
-        <div className='footer'>
-            <p className='footertext'>© Kehancuran Dunia, 2022</p>
-        </div>
-    );
-}
+  return (
+    <div className="footer">
+      <p className="footertext">© Kehancuran Dunia, 2022</p>
+    </div>
+  );
+};
 
 export default Footer;

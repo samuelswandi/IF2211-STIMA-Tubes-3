@@ -61,24 +61,14 @@ func CreatePenyakit(c echo.Context) error {
 }
 
 
-func getPenyakit() []models.Penyakit {
+func getPenyakit(nama string) models.Penyakit {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	var penyakit []models.Penyakit
 	defer cancel()
 
-	results, err := penyakitCollection.Find(ctx, bson.M{})
-
+	var penyakit models.Penyakit
+	err := penyakitCollection.FindOne(ctx, bson.M{"nama_penyakit": nama}).Decode(&penyakit)
 	if err != nil {
 		return penyakit
-	}
-
-	defer results.Close(ctx)
-	for results.Next(ctx) {
-		var singlePenyakit models.Penyakit
-		if err = results.Decode(&singlePenyakit); err != nil {
-			return penyakit
-		}
-		penyakit = append(penyakit, singlePenyakit)
 	}
 
 	return penyakit

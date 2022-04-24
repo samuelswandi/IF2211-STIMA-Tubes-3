@@ -2,24 +2,24 @@ package models
 
 type TesDNA struct {
 	Nama         string `json:"nama" validate:"required"`
-	SequenceDNA  string `json:"sequence_dna" validate:"required"`
-	NamaPenyakit string `json:"nama_penyakit" validate:"required"`
+	SequenceDNA  string `json:"sequencedna" validate:"required"`
+	NamaPenyakit string `json:"namapenyakit" validate:"required"`
 }
 
 type Riwayat struct {
-	Tanggal   string `json:"tanggal,omitempty"`
-	Nama      string `json:"nama,omitempty" validate:"required"`
-	Penyakit  string `json:"penyakit,omitempty" validate:"required"`
-	Kemiripan string `json:"kemiripan,omitempty" validate:"required"`
-	Prediksi  bool   `json:"prediksi,omitempty" validate:"required"`
+	Tanggal      string `json:"tanggal"`
+	Nama         string `json:"nama" validate:"required"`
+	NamaPenyakit string `json:"namapenyakit" validate:"required"`
+	Kemiripan    string `json:"kemiripan"`
+	Prediksi     bool   `json:"prediksi"`
 }
 
 type RiwayatRequest struct {
-	Tanggal      string `json:"tanggal,omitempty"`
-	NamaPenyakit string `json:"nama_penyakit,omitempty"`
+	Tanggal      string `json:"tanggal"`
+	NamaPenyakit string `json:"namapenyakit"`
 }
 
 type Penyakit struct {
-	NamaPenyakit string `json:"nama_penyakit,omitempty" validate:"required"`
-	SequenceDNA  string `json:"sequence_dna,omitempty" validate:"required"`
+	NamaPenyakit string `json:"namapenyakit,omitempty" validate:"required"`
+	SequenceDNA  string `json:"sequencedna,omitempty" validate:"required"`
 }
