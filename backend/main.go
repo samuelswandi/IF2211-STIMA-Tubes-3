@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"main/configs"
 	"main/routes"
 
@@ -15,5 +16,7 @@ func main() {
 
 	routes.UserRoute(e)
 
-	e.Logger.Fatal(e.Start(":6000"))
+	port, _ := os.LookupEnv("PORT")
+	e.Logger.Fatal(e.Start(":" + port))
+	// https://localhost:6000/
 }

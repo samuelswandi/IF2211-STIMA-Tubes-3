@@ -1,12 +1,12 @@
 import React from 'react';
+import axios from 'axios';
 import '../style/style.css';
 import Navigation from './Navigation';
 import { Container, Table, Form, Button } from 'react-bootstrap';
 
 const RiwayatPenyakit = () => {
+  const URL = "https://localhost:6000";
   const [query, setQuery] = React.useState("");
-
-  // dummy data
   const [result, setResult] = React.useState([
     {no: 1, tanggal: "2008-08-08", namaPengguna: "Ujang", namaPenyakit: "Panu", hasil: "True"},
     {no: 2, tanggal: "2007-07-07", namaPengguna: "Mang Ujang", namaPenyakit: "Panu", hasil: "True"},
@@ -17,10 +17,35 @@ const RiwayatPenyakit = () => {
     {no: 7, tanggal: "2002-02-02", namaPengguna: "Ibu Melani", namaPenyakit: "Panu", hasil: "True"},
   ]);
 
+  React.useEffect(() => {
+    axios.get(URL, {
+      data : {
+        tanggal : "",
+        nama_penyakit: ""
+      }
+    })
+    .then(response => {
+      console.log(response)
+    })
+  }, [result])
+
   const handleSubmit = (e) => {
-    setQuery(e.target.value);
-    console.log(query); // SEND QUERY
-    // setResult(hasil query)
+    setQuery(e.target.value)   
+    console.log(query); 
+
+      // var data = {
+      //   tanggal : "",
+      //   nama_penyakit : ""
+      // }
+
+      // data[tanggal] = query[0]
+      // data[nama_penyakit] = query[1]
+
+      // axios.POST(URL, data)
+      //   .then(response => {
+      //     setResult(response)
+      //   })
+
     setQuery("");
   }
 
@@ -81,6 +106,7 @@ const RiwayatPenyakit = () => {
     </div>
   );
 }
+
 
 export default RiwayatPenyakit;
 
