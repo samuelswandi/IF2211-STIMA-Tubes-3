@@ -12,9 +12,11 @@ class TesDNA extends React.Component {
       tanggal: "",
       printedNama: "",
       printedPenyakit: "",
+      kemiripan: "",
+      hasil: "",
       namaPengguna: "",
-      sequenceDNA: "",
       namaPenyakit: "",
+      sequenceDNA: "",
     };
     this.URL = "http://localhost:35783";
   }
@@ -59,9 +61,14 @@ class TesDNA extends React.Component {
       },
     }).then((response) => {
       alert("Tes telah selesai!");
+      // nanti set sesuai hasil disini
+      this.setState({ tanggal: today + " / " });
+      this.setState({ printedNama: this.state.namaPengguna + " / " });
+      this.setState({ printedPenyakit: this.state.namaPenyakit + " / " });
+      this.setState({ hasil: "True" });
+      this.setState({ kemiripan: "70" + "%" });
     });
-    this.setState({ printedNama: this.state.namaPengguna });
-    this.setState({ printedPenyakit: this.state.namaPenyakit });
+    // ini buat ngosongin tampilan
     this.setState({ namaPengguna: "" });
     this.setState({ namaPenyakit: "" });
   };
@@ -125,15 +132,12 @@ class TesDNA extends React.Component {
           <Col sm={6}>
             <Container className="subtitle">Hasil Tes</Container>
             <p className="result">
-              {this.state.tanggal} / {this.state.printedNama} /{" "}
-              {this.state.printedPenyakit} / True (DUMMY)
+              {this.state.tanggal} {this.state.printedNama}
+              {this.state.printedPenyakit} {this.state.hasil}
+              <br/><br/>
+              Kemiripan:
             </p>
-            <PieChart
-              data={[
-                { title: "Cocok", value: 10, color: "#04CC9D" },
-                { title: "Tidak Cocok", value: 90, color: "#09919E" },
-              ]}
-            />
+            <p className="similarity">{this.state.kemiripan}</p>
           </Col>
         </Row>
       </div>

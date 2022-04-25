@@ -6,8 +6,7 @@ import { Container, Table, Form, Button } from "react-bootstrap";
 
 const RiwayatPenyakit = () => {
   const URL = "http://localhost:35783";
-  const [queryDate, setQueryDate] = React.useState("");
-  const [queryName, setQueryName] = React.useState("");
+  const [query, setQuery] = React.useState("");
   const [result, setResult] = React.useState([]);
 
   React.useEffect(() => {
@@ -33,18 +32,65 @@ const RiwayatPenyakit = () => {
       }
     });
   }, []);
-
+  
+  const months = {
+    "januari": "01",
+    "februari": "02",
+    "maret": "03",
+    "april": "04",
+    "mei": "05",
+    "juni": "06",
+    "juli": "07",
+    "agustus": "08",
+    "september": "09",
+    "oktober": "10",
+    "november": "11",
+    "desember": "12"
+  }
+    
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("date: " + queryDate);
-    console.log("nama: " + queryName);
-
+    const validDate = /(\s*)\d\d\d\d-\d\d-\d\d(\s*)/;
+    let date = "";
+    let namaPenyakit = "";
+    if (validDate.test(query)) {
+      date = (query.match(validDate))[0].replace(/\s/g, '');;
+      namaPenyakit = query.replace(validDate, "");
+    }
+    else {
+      const isAllNum = /^\d+$/;
+      let day = "";
+      let month = "";
+      let year = "";
+      const words = query.split(/[\s]/);
+      words.forEach((word) => {
+        if (isAllNum.test(word)) {
+          (word.length === 2) ? day = word : year = word;
+        }
+        else {
+          const checkMonth = word.toLowerCase();
+          if (checkMonth in months) {
+            month = months[checkMonth];
+          }
+          else {
+            if (namaPenyakit !== "") namaPenyakit += " ";
+            namaPenyakit += word;
+          }
+        }
+      })
+      date = year;
+      if (year && month) date += "-";
+      date += month;
+      if (month && day) date += "-";
+      date += day;
+    }
+    
     axios({
       method: "post",
       url: URL + "/cariRiwayat",
       data: {
-        tanggal: queryDate,
-        namapenyakit: queryName,
+        tanggal: date,
+        namapenyakit: namaPenyakit,
       },
     }).then((response) => {
       if (!response.data.data.data) {
@@ -61,8 +107,7 @@ const RiwayatPenyakit = () => {
       }
     });
 
-    setQueryDate("");
-    setQueryName("");
+    setQuery("");
   };
 
   return (
@@ -88,22 +133,9 @@ const RiwayatPenyakit = () => {
             <Form.Control
               size="lg"
               type="text"
-              value={queryName}
-              placeholder="Nama Penyakit"
-              onChange={(e) => setQueryName(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group
-            className="mb-3"
-            controlId="formBasicText"
-            style={{ width: "100%" }}
-          >
-            <Form.Control
-              size="lg"
-              type="date"
-              value={queryDate}
-              placeholder="Tanggal"
-              onChange={(e) => setQueryDate(e.target.value)}
+              value={query}
+              placeholder="Tanggal / Nama Penyakit"
+              onChange={(e) => setQuery(e.target.value)}
             />
           </Form.Group>
           <Button type="submit" onClick={(e) => handleSubmit(e)}>
