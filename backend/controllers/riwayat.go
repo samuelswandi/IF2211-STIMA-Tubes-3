@@ -110,7 +110,7 @@ func CreateRiwayat(c echo.Context) error {
 		return newError(c, err)
 	}
 
-	res := cekDNA(tesDNA.NamaPenyakit, tesDNA.SequenceDNA, "KMP")
+	res := cekDNA(tesDNA.NamaPenyakit, tesDNA.SequenceDNA, tesDNA.JenisProsedur)
 	if res.Similarity == -1 {
 		return c.JSON(http.StatusOK, responses.Response{Status: http.StatusOK, Message: "error", Data: &echo.Map{"data": "Nama penyakit tidak ditemukan, harap tambahkan pada tab TAMBAH PENYAKIT"}})
 	}

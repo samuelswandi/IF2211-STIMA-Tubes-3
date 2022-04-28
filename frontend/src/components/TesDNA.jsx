@@ -16,6 +16,7 @@ class TesDNA extends React.Component {
       namaPengguna: "",
       namaPenyakit: "",
       sequenceDNA: "",
+      prosedur: "",
     };
     this.URL = "https://sxf-dnamatching-backend.herokuapp.com";
   }
@@ -53,6 +54,7 @@ class TesDNA extends React.Component {
         nama: this.state.namaPengguna,
         namapenyakit: this.state.namaPenyakit,
         sequencedna: this.state.sequenceDNA,
+        jenisprosedur: this.state.prosedur,
       },
     }).then((response) => {
       if (response.data.message === "error") {
@@ -60,7 +62,8 @@ class TesDNA extends React.Component {
       } else {
         this.setState({ tanggal: response.data.data.data.tanggal + " / " });
         this.setState({ printedNama: response.data.data.data.nama + " / " });
-        this.setState({ printedPenyakit: response.data.data.data.namapenyakit + "   " });
+        this.setState({ printedPenyakit: response.data.data.data.namapenyakit + " / "});
+        this.setState({ hasil: response.data.data.data.prediksi.toString()});
         this.setState({ kemiripan: response.data.data.data.kemiripan });
         alert("Tes telah selesai!");
       }
@@ -112,13 +115,29 @@ class TesDNA extends React.Component {
                     onChange={this.onChangePenyakit}
                   />
                 </Form.Group>
+                <Form.Group>
+                  <Form.Label>Metode Pencocokan String</Form.Label>
+                  <div className="metode-container">
+                    <Form.Check type="radio" >
+                      <Form.Check.Input type="radio" name="method"
+                      onClick={() => {this.setState({ prosedur: "KMP" })}}/>
+                      <Form.Check.Label>Knuth-Morris-Pratt</Form.Check.Label>
+                    </Form.Check>
+                    <Form.Check type="radio" >
+                      <Form.Check.Input type="radio" name="method"
+                      onClick={() => {this.setState({ prosedur: "BM" })}}/>
+                      <Form.Check.Label>Boyer-Moore</Form.Check.Label>
+                    </Form.Check>
+                  </div>
+                </Form.Group>
                 <Button
                   type="submit"
                   onClick={this.onSubmit}
                   disabled={
                     this.state.namaPengguna === "" ||
                     this.state.namaPenyakit === "" ||
-                    this.state.sequenceDNA === ""
+                    this.state.sequenceDNA === "" ||
+                    this.state.prosedur === ""
                   }
                 >
                   Upload

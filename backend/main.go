@@ -13,7 +13,7 @@ func main() {
 	e := echo.New()
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"https://localhost:3000", "http://localhost:3000"},
+		AllowOrigins: []string{"https://localhost:3000", "http://localhost:3000", "https://sxf-dnamatching.vercel.app"},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 

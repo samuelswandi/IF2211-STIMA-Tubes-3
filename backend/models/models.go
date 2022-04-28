@@ -1,9 +1,10 @@
 package models
 
 type TesDNA struct {
-	Nama         string `json:"nama" validate:"required"`
-	SequenceDNA  string `json:"sequencedna" validate:"required"`
-	NamaPenyakit string `json:"namapenyakit" validate:"required"`
+	Nama          string `json:"nama" validate:"required"`
+	SequenceDNA   string `json:"sequencedna" validate:"required"`
+	NamaPenyakit  string `json:"namapenyakit" validate:"required"`
+	JenisProsedur string `json:"jenisprosedur" validate:"required"`
 }
 
 type Riwayat struct {

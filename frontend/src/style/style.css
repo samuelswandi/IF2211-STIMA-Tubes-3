@@ -52,6 +52,14 @@
     height: 15vw;   
 }
 
+.metode-container {
+    display: flex;
+    font-size: 14px;
+    column-gap: 15px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
 .searchbar {
     width: 35%;
 }
