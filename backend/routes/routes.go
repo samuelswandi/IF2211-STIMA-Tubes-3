@@ -9,7 +9,7 @@ import (
 
 func UserRoute(e *echo.Echo) {
 	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, from KHDunia!")
+		return c.String(http.StatusOK, "Hello, from Stima x Family!")
 	})
 	e.POST("/cariRiwayat", controllers.GetRiwayat)
 	e.POST("/buatRiwayat", controllers.CreateRiwayat)

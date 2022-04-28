@@ -5,7 +5,7 @@ import Navigation from "./Navigation";
 import { Container, Table, Form, Button } from "react-bootstrap";
 
 const RiwayatPenyakit = () => {
-  const URL = "http://localhost:12392";
+  const URL = "https://sxf-dnamatching-backend.herokuapp.com";
   const [query, setQuery] = React.useState("");
   const [result, setResult] = React.useState([]);
 

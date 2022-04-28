@@ -17,7 +17,7 @@ class TesDNA extends React.Component {
       namaPenyakit: "",
       sequenceDNA: "",
     };
-    this.URL = "http://localhost:12392";
+    this.URL = "https://sxf-dnamatching-backend.herokuapp.com";
   }
 
   onChangePengguna = (e) => {

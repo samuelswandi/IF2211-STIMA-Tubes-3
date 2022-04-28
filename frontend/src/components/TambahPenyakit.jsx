@@ -11,7 +11,7 @@ class TambahPenyakit extends React.Component {
       sequencedna: "",
       namapenyakit: "",
     };
-    this.URL = "http://localhost:12392";
+    this.URL = "https://sxf-dnamatching-backend.herokuapp.com";
   }
 
   onChange = (e) => {
