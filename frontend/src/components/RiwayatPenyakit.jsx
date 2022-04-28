@@ -23,7 +23,6 @@ const RiwayatPenyakit = () => {
           { no: 0, nama: "-", tanggal: "-", namapenyakit: "-", prediksi: 0.0 },
         ]);
       } else {
-          console.log(response.data.data.data);
         let count = 1;
         response.data.data.data.forEach((element) => {
           element.no = count;

@@ -36,7 +36,6 @@ class TambahPenyakit extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
     axios({
       method: "post",
       url: this.URL + "/buatPenyakit",
