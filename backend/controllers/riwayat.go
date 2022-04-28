@@ -6,7 +6,6 @@ import (
 	"main/models"
 	"main/responses"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -36,29 +35,67 @@ func GetRiwayat(c echo.Context) error {
 	var results *mongo.Cursor
 
 	query := bson.M{}
-
-	if Tanggal != "" {
-		query["tanggal"] = riwayat.Tanggal
-	}
-
 	if NamaPenyakit != "" {
 		query["namapenyakit"] = riwayat.NamaPenyakit
 	}
 
-	results, err = riwayatCollection.Find(ctx, query)
-	if err != nil {
-		return newError(c, err)
-	}
+	if len(Tanggal) == 7 {
+		// if the format is yyyy-mm
+		// so we loop for a WHOLE MONTH
+		for i := 0; i < 31; i++ {
+			query["tanggal"] = fmt.Sprintf("%s-%02d", Tanggal, i+1)
+			results, err = riwayatCollection.Find(ctx, query)
+			if err != nil {
+				return newError(c, err)
+			}
 
-	defer results.Close(ctx)
-	for results.Next(ctx) {
-		var singleRiwayat models.Riwayat
-		if err = results.Decode(&singleRiwayat); err != nil {
+			//reading from the db in an optimal way
+			defer results.Close(ctx)
+			for results.Next(ctx) {
+				var singleRiwayat models.Riwayat
+				if err = results.Decode(&singleRiwayat); err != nil {
+					return newError(c, err)
+				}
+				hasilRiwayat = append(hasilRiwayat, singleRiwayat)
+			}
+		}
+	} else if len(riwayat.Tanggal) == 5 {
+		// if the format is mm-dd
+		// so we loop for a WHOLE YEAR
+		// KARENA BARU DIBANGUN 2022, JADI CUMAN CEK TAHUN 2022 YA GES YA
+		query["tanggal"] = fmt.Sprintf("2022-%s", Tanggal)
+		results, err = riwayatCollection.Find(ctx, query)
+		if err != nil {
 			return newError(c, err)
 		}
-		hasilRiwayat = append(hasilRiwayat, singleRiwayat)
+
+		defer results.Close(ctx)
+		for results.Next(ctx) {
+			var singleRiwayat models.Riwayat
+			if err = results.Decode(&singleRiwayat); err != nil {
+				return newError(c, err)
+			}
+			hasilRiwayat = append(hasilRiwayat, singleRiwayat)
+		}
+	} else {
+		if Tanggal != "" {
+			query["tanggal"] = riwayat.Tanggal
+		}
+
+		results, err = riwayatCollection.Find(ctx, query)
+		if err != nil {
+			return newError(c, err)
+		}
+
+		defer results.Close(ctx)
+		for results.Next(ctx) {
+			var singleRiwayat models.Riwayat
+			if err = results.Decode(&singleRiwayat); err != nil {
+				return newError(c, err)
+			}
+			hasilRiwayat = append(hasilRiwayat, singleRiwayat)
+		}
 	}
-	fmt.Println(hasilRiwayat)
 
 	return c.JSON(http.StatusOK, responses.Response{Status: http.StatusOK, Message: "success", Data: &echo.Map{"data": hasilRiwayat}})
 }
@@ -73,17 +110,16 @@ func CreateRiwayat(c echo.Context) error {
 		return newError(c, err)
 	}
 
-	if err := validate.Struct(tesDNA); err != nil {
-		return newError(c, err)
+	res := cekDNA(tesDNA.NamaPenyakit, tesDNA.SequenceDNA, "KMP")
+	if res.Similarity == -1 {
+		return c.JSON(http.StatusOK, responses.Response{Status: http.StatusOK, Message: "error", Data: &echo.Map{"data": "Nama penyakit tidak ditemukan, harap tambahkan pada tab TAMBAH PENYAKIT"}})
 	}
 
-	res := cekDNA(tesDNA.NamaPenyakit, tesDNA.SequenceDNA, "KMP")
 	riwayat.Tanggal = time.Now().Format("2006-01-02")
 	riwayat.Nama = tesDNA.Nama
 	riwayat.NamaPenyakit = tesDNA.NamaPenyakit
-	riwayat.Kemiripan = fmt.Sprintf("%f %", res.Similarity)
+	riwayat.Kemiripan = fmt.Sprintf("%2.f ", res.Similarity) + "%"
 	riwayat.Prediksi = res.Verdict
-
 
 	_, err := riwayatCollection.InsertOne(ctx, riwayat)
 	if err != nil {

@@ -3,7 +3,6 @@ package main
 import (
 	"main/configs"
 	"main/routes"
-	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -22,6 +21,6 @@ func main() {
 
 	routes.UserRoute(e)
 
-	port, _ := os.LookupEnv("PORT")
-	e.Logger.Fatal(e.Start(":" + port))
+	// port, _ := os.LookupEnv("PORT")
+	e.Logger.Fatal(e.Start(":12392"))
 }

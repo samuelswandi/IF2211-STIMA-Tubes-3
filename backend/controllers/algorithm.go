@@ -158,8 +158,12 @@ func findSimilarity(text, pattern string) float32 {
 }
 
 func cekDNA(namapenyakit string, pattern string, method string) Result {
-	patternPenyakit := getPenyakit(namapenyakit)
+	patternPenyakit := getPenyakit(namapenyakit) // ngambil sequence DNA dari nama penyakit "namapenyakit"
 	verdict := false
+
+	if patternPenyakit.NamaPenyakit != namapenyakit {
+		return Result{verdict, -1}
+	}
 
 	if method == "KMP" {
 		verdict = KMP(patternPenyakit.SequenceDNA, pattern)
@@ -167,10 +171,21 @@ func cekDNA(namapenyakit string, pattern string, method string) Result {
 		verdict = bmMatch(patternPenyakit.SequenceDNA, pattern)
 	}
 
+	if verdict {
+		return Result{
+			Verdict:    true,
+			Similarity: 100,
+		}
+	}
+
 	similarity := findSimilarity(pattern, patternPenyakit.SequenceDNA)
+
+	if similarity > 0.8 {
+		verdict = true
+	}
 
 	return Result{
 		Verdict:    verdict,
-		Similarity: similarities * 100,
+		Similarity: similarity * 100,
 	}
 }

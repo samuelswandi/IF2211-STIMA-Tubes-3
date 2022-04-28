@@ -3,7 +3,6 @@ import axios from "axios";
 import "../style/style.css";
 import Navigation from "./Navigation";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
-import { PieChart } from "react-minimal-pie-chart";
 
 class TesDNA extends React.Component {
   constructor(props) {
@@ -18,7 +17,7 @@ class TesDNA extends React.Component {
       namaPenyakit: "",
       sequenceDNA: "",
     };
-    this.URL = "http://localhost:35783";
+    this.URL = "http://localhost:12392";
   }
 
   onChangePengguna = (e) => {
@@ -47,26 +46,24 @@ class TesDNA extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const today = new Date().toISOString().slice(0, 10);
-
     axios({
       method: "post",
       url: this.URL + "/buatRiwayat",
       data: {
-        tanggal: this.state.tanggal,
         nama: this.state.namaPengguna,
         namapenyakit: this.state.namaPenyakit,
-        kemiripan: "",
-        prediksi: true,
+        sequencedna: this.state.sequenceDNA,
       },
     }).then((response) => {
-      alert("Tes telah selesai!");
-      // nanti set sesuai hasil disini
-      this.setState({ tanggal: today + " / " });
-      this.setState({ printedNama: this.state.namaPengguna + " / " });
-      this.setState({ printedPenyakit: this.state.namaPenyakit + " / " });
-      this.setState({ hasil: "True" });
-      this.setState({ kemiripan: "70" + "%" });
+      if (response.data.message === "error") {
+        alert(response.data.data.data);
+      } else {
+        this.setState({ tanggal: response.data.data.data.tanggal + " / " });
+        this.setState({ printedNama: response.data.data.data.nama + " / " });
+        this.setState({ printedPenyakit: response.data.data.data.namapenyakit + "   " });
+        this.setState({ kemiripan: response.data.data.data.kemiripan });
+        alert("Tes telah selesai!");
+      }
     });
     // ini buat ngosongin tampilan
     this.setState({ namaPengguna: "" });
@@ -134,7 +131,8 @@ class TesDNA extends React.Component {
             <p className="result">
               {this.state.tanggal} {this.state.printedNama}
               {this.state.printedPenyakit} {this.state.hasil}
-              <br/><br/>
+              <br />
+              <br />
               Kemiripan:
             </p>
             <p className="similarity">{this.state.kemiripan}</p>

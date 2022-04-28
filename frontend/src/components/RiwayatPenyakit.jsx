@@ -5,7 +5,7 @@ import Navigation from "./Navigation";
 import { Container, Table, Form, Button } from "react-bootstrap";
 
 const RiwayatPenyakit = () => {
-  const URL = "http://localhost:35783";
+  const URL = "http://localhost:12392";
   const [query, setQuery] = React.useState("");
   const [result, setResult] = React.useState([]);
 
@@ -23,6 +23,7 @@ const RiwayatPenyakit = () => {
           { no: 0, nama: "-", tanggal: "-", namapenyakit: "-", prediksi: 0.0 },
         ]);
       } else {
+          console.log(response.data.data.data);
         let count = 1;
         response.data.data.data.forEach((element) => {
           element.no = count;

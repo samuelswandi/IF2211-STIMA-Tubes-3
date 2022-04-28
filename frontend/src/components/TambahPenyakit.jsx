@@ -11,7 +11,7 @@ class TambahPenyakit extends React.Component {
       sequencedna: "",
       namapenyakit: "",
     };
-    this.URL = "http://localhost:39171";
+    this.URL = "http://localhost:12392";
   }
 
   onChange = (e) => {

@@ -66,9 +66,9 @@ func getPenyakit(nama string) models.Penyakit {
 	defer cancel()
 
 	var penyakit models.Penyakit
-	err := penyakitCollection.FindOne(ctx, bson.M{"nama_penyakit": nama}).Decode(&penyakit)
+	err := penyakitCollection.FindOne(ctx, bson.M{"namapenyakit": nama}).Decode(&penyakit)
 	if err != nil {
-		return penyakit
+		return models.Penyakit{NamaPenyakit: ""}
 	}
 
 	return penyakit
