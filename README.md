@@ -1,10 +1,8 @@
 # DNA-Matching 
----
 #### `link web` :  https://sxf-dnamatching.vercel.app/
 Stima X Family DNA-Matching merupakan web untuk tes DNA yang menerima input nama user, dna sequence user(berupa file txt), nama penyakit yang ingin dicek, dan algoritma string matching. Lalu setelah submit, web akan menentukan apakah sequence dna dari user memiliki kesamaan degan dna sequence penyakit yang diinput juga. Selain mengecek DNA, web ini juga memiliki fitur untuk menambah sequence dna penyakit baru, serta melihat riwayat user yang sudah tes.
 
 ## Struktur web
----
 ### Backend
 
 isi struktur folder backend:
